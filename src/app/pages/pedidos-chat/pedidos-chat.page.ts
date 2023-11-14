@@ -129,7 +129,7 @@ export class PedidosChatPage implements OnInit {
           console.log('hoy')
           this.isprod = true;
           this.cantidadMenu = menu.cantidad;
-          this.linkImage = 'https://slottest.000webhostapp.com/img/' + menu.fotomenu + '.jpg';
+          this.linkImage = menu.fotomenu;
           //this.linkImage = 'http://192.168.0.13/almuonline/img/' + menu.fotomenu + '.jpg';
           this.costo = menu.precio;
           this.idMenu = menu.idprodmen;        

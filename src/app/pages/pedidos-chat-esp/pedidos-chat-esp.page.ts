@@ -58,7 +58,7 @@ export class PedidosChatEspPage implements OnInit {
   cantidadMenu = 0;
 
   idCliente : null;
-  idProducto : number = 0;
+  idProducto : number = 3;
   producto : string = '';
   descrip : null;
   costo : number = 0;
@@ -85,7 +85,7 @@ export class PedidosChatEspPage implements OnInit {
       this.vdat = true;
     }
 
-    console.log(this.fech)
+    
     if(this.id == 0){
       this.geolocation.getCurrentPosition({
         enableHighAccuracy : true
@@ -114,6 +114,7 @@ export class PedidosChatEspPage implements OnInit {
 
   mainMenu(){
     this.apiService.readMenu().subscribe( (menus : Menu[]) => {
+      console.log(menus + " idprod: "+ this.idProducto)
       for(let menu of menus){
         if(menu.fecha == this.fech && menu.idempresa == 1 && menu.idproducto == this.idProducto){
           console.log('hoy')

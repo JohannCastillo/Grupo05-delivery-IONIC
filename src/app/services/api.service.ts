@@ -1,7 +1,7 @@
 import { Token } from './../models/token';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Horario } from '../models/horario';
 import { Client } from '../models/client';
 import { Plato } from '../models/platos';
@@ -12,6 +12,7 @@ import { Pedido } from '../models/pedido';
 import { Pedidodetalle } from '../models/pedidodetalle';
 import { Delivery } from '../models/delivery';
 import { Deliveryubicacion } from '../models/deliveryubicacion';
+import { platos, horario, menu, detalle, productos } from '../mocks/data';
 
 @Injectable({
   providedIn: 'root'
@@ -39,31 +40,53 @@ export class ApiService {
   //PHP_API_SERVER = "http://192.168.0.13/API_REST_ALMULINE";
 
   readHorario() : Observable<Horario[]>{
-    return this.httpClient.get<Horario[]>(`${this.PHP_API_SERVER}/horario/read.php`);
+    return of(horario)
   }
 
   readClient() : Observable<Client[]>{
-    return this.httpClient.get<Client[]>(`${this.PHP_API_SERVER}/client/read.php`);
+    const client: Client[] = [
+      {
+        idcliente: 1,
+        nombrecliente: 'Grupo 5',
+        celular: 123456789,
+        direccion: 'Calle 1',
+        latitud: 0,
+        longitud: 0,
+        referencia: 'Casa'
+      }
+    ]
+    return of(client)
   }
 
   readPlatos() : Observable<Plato[]>{
-    return this.httpClient.get<Plato[]>(`${this.PHP_API_SERVER}/platos/read.php`);
+    return of(platos)
   }
 
   readMenu() : Observable<Menu[]>{
-    return this.httpClient.get<Menu[]>(`${this.PHP_API_SERVER}/menu/read.php`);
+    return of(menu)
   }
 
   readDetalle() : Observable<Detalle[]>{
-    return this.httpClient.get<Detalle[]>(`${this.PHP_API_SERVER}/detalle/read.php`);
+    return of(detalle)
   }
 
   readProducto() : Observable<Producto[]>{
-    return this.httpClient.get<Producto[]>(`${this.PHP_API_SERVER}/productos/read.php`);
+    return of(productos)
   }
   
   readPedido() : Observable<Pedido[]>{
-    return this.httpClient.get<Pedido[]>(`${this.PHP_API_SERVER}/pedidos/read.php`);
+    const pedidos: Pedido[] = [
+      {
+        idpedido: 1,
+        idcliente: 1,
+        idprodmenu: 1,
+        estado: 'Pendiente',
+        fechapedido: '2020-01-01',
+        horapedido: '00:00',
+        usuadd: 1
+      }
+    ]
+    return of(pedidos)
   }
 
   readToken() : Observable<Token[]>{
@@ -71,7 +94,21 @@ export class ApiService {
   }
 
   readDelivery() : Observable<Delivery[]>{
-    return this.httpClient.get<Delivery[]>(`${this.PHP_API_SERVER}/delivery/read.php`);
+    const delivery: Delivery[] = [
+      {
+        iddeliv: 1,
+        idpedido: 1,
+        estado: 'Pendiente',
+        fechahoraenviado: '2020-01-01',
+        direccionentrega: 'Calle 1',
+        latitudentrega: 0,
+        longitudentrega: 0,
+        cirepartidor: '12345678',
+        fechahoraentregado: '2020-01-01',
+        fechahorarecogido: '2020-01-01',
+      }
+    ]
+    return of(delivery)
   }
 
   readDeliveryUbicacion () : Observable<Deliveryubicacion[]>{

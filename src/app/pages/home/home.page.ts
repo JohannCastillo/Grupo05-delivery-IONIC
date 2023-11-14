@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
     this.apiService.readHorario().subscribe( (horario : Horario[]) => {
       this.time = moment().format('HH:mm:ss'); 
       this.presentAlmu(horario);
-    }) 
+     }) 
   }
 
   async presentGeo(){
@@ -195,21 +195,25 @@ export class HomePage implements OnInit {
   async presentNum(datas){
     var message = '';
     var placeholder = '';
+    var value = '';
     if(datas == 1){
       message = 'Introduce tu numero de Pedido';
-      placeholder = 'Numero de Pedido'
+      placeholder = 'Numero de Pedido';
+      value = '1';
     }else{
       message = 'Introduce tu numero de Celular';
-      placeholder = 'Numero de Celular'
+      placeholder = 'Numero de Celular';
+      value = '123456789';
     }
     const alert = await this.alertCtrl.create({
-      header : 'SEGIMIENTO DE PEDIDO',
+      header : 'SEGUIMIENTO DE PEDIDO',
       message: message,
       inputs: [{
         name : 'chkNro',
         type : 'number',
         id : 't',
         placeholder : placeholder,
+        value:  value,
         min : -5,
         max: 8
       }],
@@ -235,7 +239,7 @@ export class HomePage implements OnInit {
           }
           if(datas == 2){
             this.apiService.readClient().subscribe( (clients : Client[]) => {         
-              clients.forEach( element => {     
+              clients.forEach( (element) => {     
                 if(element.celular == data.chkNro){
                   this.celerr = true;
                   this.navSP(datas, element.idcliente, element.nombrecliente);
@@ -258,7 +262,7 @@ export class HomePage implements OnInit {
   navSP(datas, id, cliente){
     if(datas == 2){
       this.apiService.readPedido().subscribe( (pedidos: Pedido[]) => {
-        pedidos.forEach( element => {
+        pedidos.forEach( (element) => {
           if(element.idcliente == id){
             this.idpedido = element.idpedido;
           }
@@ -267,7 +271,7 @@ export class HomePage implements OnInit {
       });
     }else{
       this.apiService.readClient().subscribe( (clientes: Client[]) => {
-        clientes.forEach( element => {
+        clientes.forEach( (element) => {
           if(element.idcliente == cliente){
             this.cliente = element.nombrecliente;
           }
